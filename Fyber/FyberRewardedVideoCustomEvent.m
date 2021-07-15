@@ -3,7 +3,7 @@
 #import "FyberAdapterConfiguration.h"
 #import <IASDKCore/IASDKCore.h>
 #import <IASDKCore/IASDKMRAID.h>
-#import <IASDKVideo/IASDKVideo.h>
+#import <IASDKCore/IASDKVideo.h>
 
 @interface FyberRewardedVideoCustomEvent () <IAUnitDelegate, IAMRAIDContentDelegate, IAVideoContentDelegate>
 
