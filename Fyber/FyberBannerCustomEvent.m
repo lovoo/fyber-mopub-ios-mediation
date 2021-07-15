@@ -3,7 +3,7 @@
 #import "FyberAdapterConfiguration.h"
 
 #import <IASDKCore/IASDKCore.h>
-#import <IASDKMRAID/IASDKMRAID.h>
+#import <IASDKCore/IASDKMRAID.h>
 
 @interface FyberBannerCustomEvent () <IAUnitDelegate, IAMRAIDContentDelegate>
 

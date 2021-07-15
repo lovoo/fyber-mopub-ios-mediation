@@ -4,7 +4,7 @@
 
 #import <IASDKCore/IASDKCore.h>
 #import <IASDKVideo/IASDKVideo.h>
-#import <IASDKMRAID/IASDKMRAID.h>
+#import <IASDKCore/IASDKMRAID.h>
 
 @interface FyberInterstitialCustomEvent () <IAUnitDelegate, IAVideoContentDelegate, IAMRAIDContentDelegate>
 
