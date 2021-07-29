@@ -1,4 +1,8 @@
 ## Changelog
+  * 8.4.2.2
+      * Adjust minimium MoPub SDK version from 5.17.0 to 5.17. This allows integrations to use MoPub 5.17.x up to (but not including) 6.0.
+      * Service release. No new features. 
+
   * 8.4.2.1
       * Fix potential race condition when requesting Chartboost ads.
      
