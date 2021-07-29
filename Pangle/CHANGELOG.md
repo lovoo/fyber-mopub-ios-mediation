@@ -1,4 +1,8 @@
 ## Changelog
+   * 3.7.0.8.1
+     * Adjust minimium MoPub SDK version from 5.17.0 to 5.17. This allows integrations to use MoPub 5.17.x up to (but not including) 6.0.
+     * Service release. No new features. 
+
    * 3.7.0.8.0
      * This version of the adapters has been certified with Pangle 3.7.0.8 and MoPub SDK 5.17.0.
 
