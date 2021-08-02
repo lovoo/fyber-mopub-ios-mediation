@@ -1,4 +1,7 @@
 ## Changelog
+* 7.8.6.2
+  * Pass MoPub collected GDPR consent data to Fyber.
+  
 * 7.8.6.1
   * Adjust minimium MoPub SDK version from 5.17.0 to 5.17. This allows integrations to use MoPub 5.17.x up to (but not including) 6.0.
   * Service release. No new features. 
