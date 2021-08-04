@@ -28,7 +28,7 @@ static dispatch_queue_t sIASDKInitSyncQueue = nil;
 #pragma mark - MPAdapterConfiguration
 
 - (NSString *)adapterVersion {
-    return @"7.8.6.2";
+    return @"7.8.7.0";
 }
 
 - (NSString *)biddingToken {
