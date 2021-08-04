@@ -28,7 +28,7 @@ static dispatch_queue_t sIASDKInitSyncQueue = nil;
 #pragma mark - MPAdapterConfiguration
 
 - (NSString *)adapterVersion {
-    return @"7.8.6.0";
+    return @"7.8.6.2";
 }
 
 - (NSString *)biddingToken {
@@ -96,7 +96,7 @@ static dispatch_queue_t sIASDKInitSyncQueue = nil;
 }
 
 + (void)collectConsentStatusFromMoPub {
-    
+
     if (MoPub.sharedInstance.isGDPRApplicable == MPBoolYes) {
         if (MoPub.sharedInstance.allowLegitimateInterest) {
             if ((MoPub.sharedInstance.currentConsentStatus == MPConsentStatusDenied) ||
