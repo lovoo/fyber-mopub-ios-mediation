@@ -1,4 +1,27 @@
 ## Changelog
+   * 3.7.0.8.1
+     * Adjust minimium MoPub SDK version from 5.17.0 to 5.17. This allows integrations to use MoPub 5.17.x up to (but not including) 6.0.
+     * Service release. No new features. 
+
+   * 3.7.0.8.0
+     * This version of the adapters has been certified with Pangle 3.7.0.8 and MoPub SDK 5.17.0.
+
+   * 3.7.0.7.0
+     * This version of the adapters has been certified with Pangle 3.7.0.7 and MoPub SDK 5.17.0.
+
+   * 3.7.0.6.0
+     * This version of the adapters has been certified with Pangle 3.7.0.6 and MoPub SDK 5.17.0.
+
+   * 3.7.0.5.0
+     * This version of the adapters has been certified with Pangle 3.7.0.5 and MoPub SDK 5.17.0.
+
+   * 3.6.1.7.0
+     * This version of the adapters has been certified with Pangle 3.6.1.7 and MoPub SDK 5.17.0.
+
+   * 3.6.1.5.0
+     * Optimize banner size mapping.
+     * This version of the adapters has been certified with Pangle 3.6.1.5 and MoPub SDK 5.17.0.
+
    * 3.5.1.2.1
      * Add `fullscreenAdAdapterAdWillPresent` and `fullscreenAdAdapterAdDidPresent` to notify publishers of the fullscreen ad show event. Remove `fullscreenAdAdapterAdWillAppear` and  `fullscreenAdAdapterAdDidAppear` as they are now deprecated by the MoPub iOS SDK.
      * Publishers must use v5.17.0 of the MoPub SDK at the minimum.
