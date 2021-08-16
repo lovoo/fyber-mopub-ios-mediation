@@ -80,20 +80,19 @@
     
     self.fetchAdBlock = ^void() {
         [weakSelf.adSpot fetchAdWithCompletion:^(IAAdSpot * _Nullable adSpot, IAAdModel * _Nullable adModel, NSError * _Nullable error) { // 'self' should not be used in this block;
-            if (error) {
-                [weakSelf handleLoadOrShowError:error.localizedDescription isLoad:YES];
-            } else {
-                if (adSpot.activeUnitController == weakSelf.interstitialUnitController) {
-                    weakSelf.isVideoAvailable = YES;
-                    [MPLogging logEvent:[MPLogEvent adLoadSuccessForAdapter:NSStringFromClass(weakSelf.class)] source:weakSelf.spotID fromClass:weakSelf.class];
-                    [weakSelf.delegate fullscreenAdAdapterDidLoadAd:weakSelf];
-                } else {
-                    [weakSelf handleLoadOrShowError:nil isLoad:YES];
-                }
-            }
+            [weakSelf completeAdLoadWithAdSpot:adSpot adModel:adModel error:error];
         }];
     };
-    if (IASDKCore.sharedInstance.isInitialised) {
+    if (adMarkup.length > 0) {
+        if ([self.adSpot respondsToSelector:@selector(loadAdWithMarkup:withCompletion:)]) {
+            [self.adSpot loadAdWithMarkup:adMarkup withCompletion:^(IAAdSpot * _Nullable adSpot, IAAdModel * _Nullable adModel, NSError * _Nullable error) {
+                [weakSelf completeAdLoadWithAdSpot:adSpot adModel:adModel error:error];
+            }];
+        } else {
+            MPLogError(@"<Fyber> current SDK version does not support loading ad from markup");
+        }
+    }
+    else if (IASDKCore.sharedInstance.isInitialised) {
         [self performAdFetch:nil];
     } else {
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(performAdFetch:) name:kIASDKInitCompleteNotification object:nil];
@@ -108,6 +107,20 @@
         fetchAdBlock();
         
         [NSNotificationCenter.defaultCenter removeObserver:self name:kIASDKInitCompleteNotification object:self];
+    }
+}
+
+- (void)completeAdLoadWithAdSpot:(IAAdSpot *)adSpot adModel:(IAAdModel *) adModel error:(NSError *)error {
+    if (error) {
+        [self handleLoadOrShowError:error.localizedDescription isLoad:YES];
+    } else {
+        if (adSpot.activeUnitController == self.interstitialUnitController) {
+            self.isVideoAvailable = YES;
+            [MPLogging logEvent:[MPLogEvent adLoadSuccessForAdapter:NSStringFromClass(self.class)] source:self.spotID fromClass:self.class];
+            [self.delegate fullscreenAdAdapterDidLoadAd:self];
+        } else {
+            [self handleLoadOrShowError:nil isLoad:YES];
+        }
     }
 }
 

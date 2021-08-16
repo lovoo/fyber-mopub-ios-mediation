@@ -91,26 +91,19 @@
     
     self.fetchAdBlock = ^void() {
         [weakSelf.adSpot fetchAdWithCompletion:^(IAAdSpot * _Nullable adSpot, IAAdModel * _Nullable adModel, NSError * _Nullable error) {
-            if (error) {
-                [weakSelf handleError:error.localizedDescription];
-            } else {
-                if (adSpot.activeUnitController == weakSelf.bannerUnitController) {
-                    if ([weakSelf.delegate inlineAdAdapterViewControllerForPresentingModalView:weakSelf].presentedViewController != nil) {
-                        [weakSelf handleError:@"view hierarchy inconsistency"];
-                    } else {
-                        [MPLogging logEvent:[MPLogEvent adLoadSuccessForAdapter:NSStringFromClass(weakSelf.class)] source:weakSelf.spotID fromClass:weakSelf.class];
-                        [MPLogging logEvent:[MPLogEvent adShowAttemptForAdapter:NSStringFromClass(weakSelf.class)] source:weakSelf.spotID fromClass:weakSelf.class];
-                        [MPLogging logEvent:[MPLogEvent adWillAppearForAdapter:NSStringFromClass(weakSelf.class)] source:weakSelf.spotID fromClass:weakSelf.class];
-                        weakSelf.bannerUnitController.adView.bounds = CGRectMake(0, 0, size.width, size.height);
-                        [weakSelf.delegate inlineAdAdapter:weakSelf didLoadAdWithAdView:weakSelf.bannerUnitController.adView];
-                    }
-                } else {
-                    [weakSelf handleError:@"active unit controller is not the current banner ad object."];
-                }
-            }
+            [weakSelf completeAdLoadWithSize:size adSpot:adSpot adModel:adModel error:error];
         }];
     };
-    if (IASDKCore.sharedInstance.isInitialised) {
+    if (adMarkup.length > 0) {
+        if ([self.adSpot respondsToSelector:@selector(loadAdWithMarkup:withCompletion:)]) {
+            [self.adSpot loadAdWithMarkup:adMarkup withCompletion:^(IAAdSpot * _Nullable adSpot, IAAdModel * _Nullable adModel, NSError * _Nullable error) {
+                [weakSelf completeAdLoadWithSize:size adSpot:adSpot adModel:adModel error:error];
+            }];
+        } else {
+            MPLogError(@"<Fyber> current SDK version does not support loading ad from markup");
+        }
+    }
+    else if (IASDKCore.sharedInstance.isInitialised) {
         [self performAdFetch:nil];
     } else {
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(performAdFetch:) name:kIASDKInitCompleteNotification object:nil];
@@ -125,6 +118,26 @@
         fetchAdBlock();
         
         [NSNotificationCenter.defaultCenter removeObserver:self name:kIASDKInitCompleteNotification object:self];
+    }
+}
+
+- (void)completeAdLoadWithSize:(CGSize)size adSpot:(IAAdSpot *)adSpot adModel:(IAAdModel *) adModel error:(NSError *)error {
+    if (error) {
+        [self handleError:error.localizedDescription];
+    } else {
+        if (adSpot.activeUnitController == self.bannerUnitController) {
+            if ([self.delegate inlineAdAdapterViewControllerForPresentingModalView:self].presentedViewController != nil) {
+                [self handleError:@"view hierarchy inconsistency"];
+            } else {
+                [MPLogging logEvent:[MPLogEvent adLoadSuccessForAdapter:NSStringFromClass(self.class)] source:self.spotID fromClass:self.class];
+                [MPLogging logEvent:[MPLogEvent adShowAttemptForAdapter:NSStringFromClass(self.class)] source:self.spotID fromClass:self.class];
+                [MPLogging logEvent:[MPLogEvent adWillAppearForAdapter:NSStringFromClass(self.class)] source:self.spotID fromClass:self.class];
+                self.bannerUnitController.adView.bounds = CGRectMake(0, 0, size.width, size.height);
+                [self.delegate inlineAdAdapter:self didLoadAdWithAdView:self.bannerUnitController.adView];
+            }
+        } else {
+            [self handleError:@"active unit controller is not the current banner ad object."];
+        }
     }
 }
 
