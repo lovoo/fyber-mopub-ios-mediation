@@ -94,13 +94,9 @@
         }];
     };
     if (adMarkup.length > 0) {
-        if ([self.adSpot respondsToSelector:@selector(loadAdWithMarkup:withCompletion:)]) {
-            [self.adSpot loadAdWithMarkup:adMarkup withCompletion:^(IAAdSpot * _Nullable adSpot, IAAdModel * _Nullable adModel, NSError * _Nullable error) {
-                [weakSelf completeAdLoadWithSize:size adSpot:adSpot adModel:adModel error:error];
-            }];
-        } else {
-            MPLogError(@"<Fyber> current SDK version does not support loading ad from markup");
-        }
+        [self.adSpot loadAdWithMarkup:adMarkup withCompletion:^(IAAdSpot * _Nullable adSpot, IAAdModel * _Nullable adModel, NSError * _Nullable error) {
+            [weakSelf completeAdLoadWithSize:size adSpot:adSpot adModel:adModel error:error];
+        }];
     }
     else if (IASDKCore.sharedInstance.isInitialised) {
         [self performAdFetch:nil];
