@@ -1,7 +1,7 @@
 ## Changelog
 * 7.8.7.0
-  * This version of the adapters has been certified with Fyber Marketplace 7.8.7 and MoPub SDK 5.17.0.
-
+  * This version of the adapters has been certified with Fyber Marketplace 7.8.7 and MoPub SDK 5.18.0.
+  
 * 7.8.6.2
   * Pass MoPub collected GDPR consent data to Fyber.
   
