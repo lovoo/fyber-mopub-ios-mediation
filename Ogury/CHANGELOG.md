@@ -1,4 +1,7 @@
 ## Changelog
+   * 1.4.1.0
+     * This version of the adapters has been certified with Ogury 1.4.1 and MoPub 5.18.0.
+
    * 1.3.5.2
      * Pass the MoPub-collected GDPR consent to Ogury.
     
