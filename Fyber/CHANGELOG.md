@@ -1,5 +1,8 @@
 ## Changelog
-  * 7.8.8.0
+* 7.9.0.0
+  * This version of the adapters has been certified with Fyber Marketplace 7.9.0 and MoPub SDK 5.18.0.
+  
+* 7.8.8.0
   * Added support for DV360 SCAR integration for full screen ads.
   * iOS 14.5 and SKAdNetwork 2.2 support - Xcode 12.5+ is not required anymore, 12.4+ required (in contrary to version 7.8.5).
   * Changed the SDK frameworks type from “.framework” to “.xcframework”. When integrating manually: “IASDKResources.bundle” is now inside ‘IASDKCore.xcframework’ and should be taken from there.
